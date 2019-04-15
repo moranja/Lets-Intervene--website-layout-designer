@@ -13,13 +13,13 @@ class Element {
     document.addEventListener('mousemove', (e) => {
       if (this.rightEdgeIsMoving) {
         this.rightEdge = e.clientX
+        this.renderAll()
+        this.body.innerHTML = ""
+        this.appendAllToBody()
       }
     })
     document.addEventListener('mouseup', () => {
       this.rightEdgeIsMoving = false
-      this.renderAll()
-      this.body.innerHTML = ""
-      this.appendAllToBody()
     })
 
 
