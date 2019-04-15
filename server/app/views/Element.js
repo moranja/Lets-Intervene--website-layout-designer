@@ -1,6 +1,6 @@
 class Element {
-  constructor() {
-
+  constructor(body) {
+    this.body = body
     this.leftEdge = 100
     this.rightEdge = 198
     this.bottomEdge = 100
@@ -11,19 +11,15 @@ class Element {
 
     this.rightEdgeIsMoving = false
     document.addEventListener('mousemove', (e) => {
-      console.log(this.rightEdgeIsMoving)
       if (this.rightEdgeIsMoving) {
         this.rightEdge = e.clientX
-        console.log(this.rightEdge)
       }
-    })
-    this.rightSide.addEventListener('mousedown', (e) => {
-      e.preventDefault()
-      this.rightEdgeIsMoving = true
-      console.log(this.rightEdgeIsMoving)
     })
     document.addEventListener('mouseup', () => {
       this.rightEdgeIsMoving = false
+      this.renderAll()
+      this.body.innerHTML = ""
+      this.appendAllToBody()
     })
 
 
@@ -51,6 +47,10 @@ class Element {
       this.rightEdge,
       this.bottomEdge
     )
+    this.rightSide.addEventListener('mousedown', (e) => {
+      e.preventDefault()
+      this.rightEdgeIsMoving = true
+    })
     this.bottomSide = this.createDiv(
       this.borderWidth,
       this.rightEdge-this.leftEdge+this.borderWidth,
@@ -78,11 +78,11 @@ class Element {
     return this.topSide
   }
 
-  appendAllToBody(body) {
-    body.append(this.serveLeft())
-    body.append(this.serveBottom())
-    body.append(this.serveRight())
-    body.append(this.serveTop())
+  appendAllToBody() {
+    this.body.append(this.serveLeft())
+    this.body.append(this.serveBottom())
+    this.body.append(this.serveRight())
+    this.body.append(this.serveTop())
   }
 
   createDiv(height, width, left, bottom) {
