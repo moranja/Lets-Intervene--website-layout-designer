@@ -1,19 +1,37 @@
 class Element {
   constructor() {
+
     this.leftEdge = 100
     this.rightEdge = 198
     this.bottomEdge = 100
     this.topEdge = 198
-    this.borderWidth = 5
+    this.borderWidth = 20
     this.renderAll()
+
+
+    this.rightEdgeIsMoving = false
+    document.addEventListener('mousemove', (e) => {
+      console.log(this.rightEdgeIsMoving)
+      if (this.rightEdgeIsMoving) {
+        this.rightEdge = e.clientX
+        console.log(this.rightEdge)
+      }
+    })
+    this.rightSide.addEventListener('mousedown', (e) => {
+      e.preventDefault()
+      this.rightEdgeIsMoving = true
+      console.log(this.rightEdgeIsMoving)
+    })
+    document.addEventListener('mouseup', () => {
+      this.rightEdgeIsMoving = false
+    })
+
+
     this.leftSide.addEventListener('click', function() {
       console.log('left')
     })
     this.bottomSide.addEventListener('click', function() {
       console.log('bottom')
-    })
-    this.rightSide.addEventListener('click', function() {
-      console.log('right')
     })
     this.topSide.addEventListener('click', function() {
       console.log('top')
