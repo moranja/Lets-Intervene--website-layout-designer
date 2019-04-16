@@ -1,3 +1,4 @@
+let i = 1
 class Element {
   constructor() {
     this.body = document.querySelector('body')
@@ -8,6 +9,10 @@ class Element {
     this.borderWidth = 10
     this.renderAll()
     this.createEventListeners()
+    this.status = "EDIT"
+    this.id = i++
+    this.option = ""
+    elementAll.push(this)
 
     document.addEventListener('mousemove', (e) => {
       if (this.leftEdgeIsMoving) {
@@ -176,15 +181,19 @@ class Element {
   } //removes all working divs from body, resets them, and adds them back to the body. called constantly during mousemove
 
   lockInElement() {
+    this.status = "SAVED"
     this.removeAll()
     this.renderFinalDiv()
     this.appendFinalToBody()
   } //converts the working divs of the element into one div
 
   editElement() {
+    this.status = "EDIT"
     this.removeFinalDiv()
     this.renderAll()
     this.createEventListeners()
     this.appendAllToBody()
   } //allows a user to return to edit a "locked in" element
 }
+
+elementAll = []
