@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-    has_many: layouts
+    has_many :layouts
 end
