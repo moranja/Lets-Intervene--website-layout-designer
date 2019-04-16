@@ -1,17 +1,14 @@
 class Element {
-  constructor(body) {
-    this.body = body
+  constructor() {
+    this.body = document.querySelector('body')
     this.leftEdge = 100
-    this.rightEdge = 198
+    this.rightEdge = 200
     this.bottomEdge = 100
-    this.topEdge = 198
-    this.borderWidth = 30
+    this.topEdge = 200
+    this.borderWidth = 10
     this.renderAll()
+    this.createEventListeners()
 
-    this.leftEdgeIsMoving = false
-    this.bottomEdgeIsMoving = false
-    this.rightEdgeIsMoving = false
-    this.topEdgeIsMoving = false
 
     document.addEventListener('mousemove', (e) => {
       if (this.leftEdgeIsMoving) {
@@ -22,10 +19,10 @@ class Element {
         }
         this.reset()
       } else if (this.bottomEdgeIsMoving) {
-        if (800 - e.clientY > this.topEdge - this.borderWidth) {
+        if (window.innerHeight - e.clientY > this.topEdge - this.borderWidth) {
           this.bottomEdge = this.topEdge - this.borderWidth
         } else {
-          this.bottomEdge = 800 - e.clientY
+          this.bottomEdge = window.innerHeight - e.clientY
         }
         this.reset()
       } else if (this.rightEdgeIsMoving) {
@@ -36,17 +33,17 @@ class Element {
         }
         this.reset()
       } else if (this.topEdgeIsMoving) {
-        if (800 - e.clientY < this.bottomEdge + this.borderWidth) {
+        if (window.innerHeight - e.clientY < this.bottomEdge + this.borderWidth) {
           this.topEdge = this.bottomEdge + this.borderWidth
         } else {
-          this.topEdge = 800 - e.clientY
+          this.topEdge = window.innerHeight - e.clientY
         }
         this.reset()
       } else if (this.interiorIsMoving) {
         this.leftEdge = e.clientX - this.leftDistance
-        this.bottomEdge = 800-e.clientY - this.bottomDistance
+        this.bottomEdge = window.innerHeight-e.clientY - this.bottomDistance
         this.rightEdge = e.clientX + this.rightDistance
-        this.topEdge = 800-e.clientY + this.topDistance
+        this.topEdge = window.innerHeight-e.clientY + this.topDistance
         this.reset()
       }
     })
@@ -57,6 +54,7 @@ class Element {
       this.topEdgeIsMoving = false
       this.interiorIsMoving = false
     })
+    this.appendAllToBody()
   }
 
   renderAll() {
@@ -66,54 +64,68 @@ class Element {
       this.leftEdge,
       this.bottomEdge
     )
-    this.leftSide.addEventListener('mousedown', (e) => {
-      e.preventDefault()
-      this.leftEdgeIsMoving = true
-    })
     this.bottomSide = this.createDiv(
       this.borderWidth,
       this.rightEdge-this.leftEdge+this.borderWidth,
       this.leftEdge,
       this.bottomEdge
     )
-    this.bottomSide.addEventListener('mousedown', (e) => {
-      e.preventDefault()
-      this.bottomEdgeIsMoving = true
-    })
     this.rightSide = this.createDiv(
       this.topEdge-this.bottomEdge+this.borderWidth,
       this.borderWidth,
       this.rightEdge,
       this.bottomEdge
     )
-    this.rightSide.addEventListener('mousedown', (e) => {
-      e.preventDefault()
-      this.rightEdgeIsMoving = true
-    })
     this.topSide = this.createDiv(
       this.borderWidth,
       this.rightEdge-this.leftEdge+this.borderWidth,
       this.leftEdge,
       this.topEdge
     )
-    this.topSide.addEventListener('mousedown', (e) => {
-      e.preventDefault()
-      this.topEdgeIsMoving = true
-    })
     this.interior = this.createDiv(
       this.topEdge-this.bottomEdge-this.borderWidth,
       this.rightEdge-this.leftEdge-this.borderWidth,
       this.leftEdge+this.borderWidth,
       this.bottomEdge+this.borderWidth
     )
-    this.interior.style.background = "blue"
+    this.interior.style.background = "white"
+  }
+
+  renderFinalDiv() {
+    this.finalDiv = this.createDiv(
+      this.topEdge-this.bottomEdge+this.borderWidth,
+      this.rightEdge-this.leftEdge+this.borderWidth,
+      this.leftEdge,
+      this.bottomEdge
+    )
+    this.finalDiv.style.background = "white"
+    this.finalDiv.style.border = "thin dashed black"
+  }
+
+  createEventListeners() {
+    this.leftSide.addEventListener('mousedown', (e) => {
+      e.preventDefault()
+      this.leftEdgeIsMoving = true
+    })
+    this.bottomSide.addEventListener('mousedown', (e) => {
+      e.preventDefault()
+      this.bottomEdgeIsMoving = true
+    })
+    this.rightSide.addEventListener('mousedown', (e) => {
+      e.preventDefault()
+      this.rightEdgeIsMoving = true
+    })
+    this.topSide.addEventListener('mousedown', (e) => {
+      e.preventDefault()
+      this.topEdgeIsMoving = true
+    })
     this.interior.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.interiorIsMoving = true
       this.leftDistance = e.clientX-this.leftEdge
-      this.bottomDistance = (800-e.clientY)-this.bottomEdge
+      this.bottomDistance = (window.innerHeight-e.clientY)-this.bottomEdge
       this.rightDistance = this.rightEdge-e.clientX
-      this.topDistance = this.topEdge-(800-e.clientY)
+      this.topDistance = this.topEdge-(window.innerHeight-e.clientY)
     })
   }
 
@@ -133,21 +145,32 @@ class Element {
     this.body.append(this.interior)
   }
 
+  appendFinalToBody() {
+    this.body.append(this.finalDiv)
+  }
+
   reset() {
     this.removeAll()
     this.renderAll()
+    this.createEventListeners()
     this.appendAllToBody()
   }
 
   createDiv(height, width, left, bottom) {
   	let div = document.createElement('div')
     div.style.position = 'absolute'
-  	div.style.background = 'red'
+  	div.style.background = 'black'
     div.style.height = `${height}px`
     div.style.width = `${width}px`
     div.style.left = `${left}px`
     div.style.bottom = `${bottom}px`
     return div
+  }
+
+  lockInElement() {
+    this.removeAll()
+    this.renderFinalDiv()
+    this.appendFinalToBody()
   }
 
 }
