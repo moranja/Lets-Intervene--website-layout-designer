@@ -9,4 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             layout.render()
         })
     })
+    .then(function(){
+        renderNavBar()
+    })
 });
