@@ -9,7 +9,6 @@ class Element {
     this.renderAll()
     this.createEventListeners()
 
-
     document.addEventListener('mousemove', (e) => {
       if (this.leftEdgeIsMoving) {
         if (e.clientX > this.rightEdge - this.borderWidth) {
@@ -17,12 +16,12 @@ class Element {
         } else {
           this.leftEdge = e.clientX
         }
-        this.reset()
+        this.reset() //each of these only activates while the mouse is clicked on it's respective div
       } else if (this.bottomEdgeIsMoving) {
         if (window.innerHeight - e.clientY > this.topEdge - this.borderWidth) {
           this.bottomEdge = this.topEdge - this.borderWidth
         } else {
-          this.bottomEdge = window.innerHeight - e.clientY
+          this.bottomEdge = (window.innerHeight - e.clientY) // window.innerHeight is referenced because the e.clientY origin is the top of the screen, but css styling origin is the bottom of the screen. This inverts it so that it displays correctly.
         }
         this.reset()
       } else if (this.rightEdgeIsMoving) {
@@ -36,7 +35,7 @@ class Element {
         if (window.innerHeight - e.clientY < this.bottomEdge + this.borderWidth) {
           this.topEdge = this.bottomEdge + this.borderWidth
         } else {
-          this.topEdge = window.innerHeight - e.clientY
+          this.topEdge = (window.innerHeight - e.clientY)
         }
         this.reset()
       } else if (this.interiorIsMoving) {
@@ -53,7 +52,7 @@ class Element {
       this.rightEdgeIsMoving = false
       this.topEdgeIsMoving = false
       this.interiorIsMoving = false
-    })
+    }) // when mouse is unclicked, all divs stop moving
     this.appendAllToBody()
   }
 
@@ -66,7 +65,7 @@ class Element {
     div.style.left = `${left}px`
     div.style.bottom = `${bottom}px`
     return div
-  }
+  } //creates the divs used while modifying layout
 
   renderAll() {
     this.leftSide = this.createDiv(
@@ -100,23 +99,7 @@ class Element {
       this.bottomEdge+this.borderWidth
     )
     this.interior.style.background = "white"
-  }
-
-  createFinalDiv() {
-    let div = document.createElement('div')
-    div.style.position = 'absolute'
-    div.style.background = 'white'
-    div.style.border = "thin dashed black"
-    div.style.height = `${(this.topEdge-this.bottomEdge+this.borderWidth)/window.innerHeight*100}%`
-    div.style.width = `${(this.rightEdge-this.leftEdge+this.borderWidth)/window.innerWidth*100}%`
-    div.style.left = `${(this.leftEdge)/window.innerWidth*100}%`
-    div.style.bottom = `${(this.bottomEdge)/window.innerHeight*100}%`
-    return div
-  }
-
-  renderFinalDiv() {
-    this.finalDiv = this.createFinalDiv()
-  }
+  } //uses this.createDiv() to make one div for each side of the element, and one for the interior
 
   createEventListeners() {
     this.leftSide.addEventListener('mousedown', (e) => {
@@ -143,6 +126,22 @@ class Element {
       this.rightDistance = this.rightEdge-e.clientX
       this.topDistance = this.topEdge-(window.innerHeight-e.clientY)
     })
+  } //adds the event listeners that activate the mousemove event listener when you click on a div
+
+  createFinalDiv() {
+    let div = document.createElement('div')
+    div.style.position = 'absolute'
+    div.style.background = 'white'
+    div.style.border = "thin dashed black"
+    div.style.height = `${(this.topEdge-this.bottomEdge+this.borderWidth)/window.innerHeight*100}%`
+    div.style.width = `${(this.rightEdge-this.leftEdge+this.borderWidth)/window.innerWidth*100}%`
+    div.style.left = `${(this.leftEdge)/window.innerWidth*100}%`
+    div.style.bottom = `${(this.bottomEdge)/window.innerHeight*100}%`
+    return div
+  } //creates the real div the user expects, after they are done modifying it, and converts it to percentage
+
+  renderFinalDiv() {
+    this.finalDiv = this.createFinalDiv()
   }
 
   removeAll() {
@@ -174,19 +173,18 @@ class Element {
     this.renderAll()
     this.createEventListeners()
     this.appendAllToBody()
-  }
+  } //removes all working divs from body, resets them, and adds them back to the body. called constantly during mousemove
 
   lockInElement() {
     this.removeAll()
     this.renderFinalDiv()
     this.appendFinalToBody()
-  }
+  } //converts the working divs of the element into one div
 
   editElement() {
     this.removeFinalDiv()
     this.renderAll()
     this.createEventListeners()
     this.appendAllToBody()
-  }
-
+  } //allows a user to return to edit a "locked in" element
 }
