@@ -1,17 +1,17 @@
 class Layout {
-    constructor(name, createdBy, html){
+    constructor(name, createdBy, img, html){
+        this.img = img
         this.name = name
         this.createdBy = createdBy
         this.html = html
     }
-
     render(){
         const layoutDiv = document.createElement('div')
         layoutDiv.className = "w3-dropdown-hover"
         
         const smallerImg = document.createElement('img')
         smallerImg.style = "width:33%"
-        smallerImg.src = "https://loremflickr.com/320/240?lock=1" 
+        smallerImg.src = this.img
         layoutDiv.append(smallerImg)
 
         const hoveredDiv = document.createElement('div')
@@ -20,7 +20,7 @@ class Layout {
         layoutDiv.append(hoveredDiv)
         const largerImg = document.createElement('img')
         largerImg.style = "width:100%"
-        largerImg.src = "https://loremflickr.com/320/240?lock=1" 
+        largerImg.src = this.img
         hoveredDiv.append(largerImg)
         const layoutName = document.createElement('h2')
         layoutName.innerText = this.name
