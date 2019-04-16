@@ -1,16 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // fetch("localhost:3000/layouts")
-    // .then(function(res){
-    //     return res.json()
-    // })
-    // .then(function(layouts){
-    //     layouts.forEach(function(layoutData){
-    //         const layout = new Layout(layoutData)
-    //         layout.render()
-    //     })
-    // })
-    // .then(function(){
-    //     renderNavBar()
-    // })
-    renderNavBar()
+    layoutsURL = 'http://localhost:3000/layouts'
+    fetch(layoutsURL)
+    .then(function(res){
+        return res.json()
+    })
+    .then(function(layouts){
+        layouts.forEach(function(layout){
+            const newLayout = new Layout(layout.name, layout.user_id, layout.html, layout.user.name)
+            newLayout.render()
+        })
+    })
+    .then(function(){
+        renderNavBar()
+    })
 });
