@@ -57,6 +57,17 @@ class Element {
     this.appendAllToBody()
   }
 
+  createDiv(height, width, left, bottom) {
+  	let div = document.createElement('div')
+    div.style.position = 'absolute'
+  	div.style.background = 'black'
+    div.style.height = `${height}px`
+    div.style.width = `${width}px`
+    div.style.left = `${left}px`
+    div.style.bottom = `${bottom}px`
+    return div
+  }
+
   renderAll() {
     this.leftSide = this.createDiv(
       this.topEdge-this.bottomEdge+this.borderWidth,
@@ -91,15 +102,20 @@ class Element {
     this.interior.style.background = "white"
   }
 
+  createFinalDiv() {
+    let div = document.createElement('div')
+    div.style.position = 'absolute'
+    div.style.background = 'white'
+    div.style.border = "thin dashed black"
+    div.style.height = `${(this.topEdge-this.bottomEdge+this.borderWidth)/window.innerHeight*100}%`
+    div.style.width = `${(this.rightEdge-this.leftEdge+this.borderWidth)/window.innerWidth*100}%`
+    div.style.left = `${(this.leftEdge)/window.innerWidth*100}%`
+    div.style.bottom = `${(this.bottomEdge)/window.innerHeight*100}%`
+    return div
+  }
+
   renderFinalDiv() {
-    this.finalDiv = this.createDiv(
-      this.topEdge-this.bottomEdge+this.borderWidth,
-      this.rightEdge-this.leftEdge+this.borderWidth,
-      this.leftEdge,
-      this.bottomEdge
-    )
-    this.finalDiv.style.background = "white"
-    this.finalDiv.style.border = "thin dashed black"
+    this.finalDiv = this.createFinalDiv()
   }
 
   createEventListeners() {
@@ -137,6 +153,10 @@ class Element {
     this.interior.remove()
   }
 
+  removeFinalDiv() {
+    this.finalDiv.remove()
+  }
+
   appendAllToBody() {
     this.body.append(this.leftSide)
     this.body.append(this.bottomSide)
@@ -156,21 +176,17 @@ class Element {
     this.appendAllToBody()
   }
 
-  createDiv(height, width, left, bottom) {
-  	let div = document.createElement('div')
-    div.style.position = 'absolute'
-  	div.style.background = 'black'
-    div.style.height = `${height}px`
-    div.style.width = `${width}px`
-    div.style.left = `${left}px`
-    div.style.bottom = `${bottom}px`
-    return div
-  }
-
   lockInElement() {
     this.removeAll()
     this.renderFinalDiv()
     this.appendFinalToBody()
+  }
+
+  editElement() {
+    this.removeFinalDiv()
+    this.renderAll()
+    this.createEventListeners()
+    this.appendAllToBody()
   }
 
 }
