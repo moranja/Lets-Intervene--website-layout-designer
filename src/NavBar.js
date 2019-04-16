@@ -8,12 +8,12 @@ function renderNavBar(){
     layoutsButton.className = "w3-bar-item w3-button w3-padding-16"
     layoutsButton.id = "layouts-button"
     layoutsButton.innerText = 'Layouts'
-    
+
     const createLayoutButton = document.createElement('a')
     createLayoutButton.className = "w3-bar-item w3-button w3-padding-16"
     createLayoutButton.id = "create-layouts-button"
     createLayoutButton.innerText = "Create New Layout"
-    
+
     const yourPageButton = document.createElement('a')
     yourPageButton.className = "w3-bar-item w3-button w3-padding-16"
     yourPageButton.id = "your-page-button"
