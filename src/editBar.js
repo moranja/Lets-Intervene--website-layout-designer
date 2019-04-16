@@ -1,10 +1,12 @@
 function renderEditBar(){
+    const body = document.querySelector('body')
+    body.innerHTML = ""
 
     const htmlTag = document.querySelector('#html')
 
     const editBarHtmlTag= document.createElement('html')
 
-    const cssHeadTag = document.createElement('head')  
+    const cssHeadTag = document.createElement('head')
 
     const cssTitleTag = document.createElement('title')
     cssTitleTag.innerText = "W3.CSS"
@@ -33,45 +35,90 @@ function renderEditBar(){
     saveButton.className = "w3-bar-item w3-button w3-right"
     saveButton.innerText = "Save Layout"
 
+    saveButton.addEventListener('click', function() {
+      elementAll.forEach(function(element) {
+        element.lockInElement()
+      })
+      console.log(body.innerHTML)
+      window.alert(body.innerHTML)
+    })
+
+    const newDropdown = document.createElement('select')
+
     const createElementButton = document.createElement('a')
     createElementButton.id = "create-element-button"
     createElementButton.className = "w3-bar-item w3-button"
     createElementButton.innerText = "Create New Element"
 
-    const textColorDiv = document.createElement('div')
-    textColorDiv.className = "w3-dropdown-hover"
+    createElementButton.addEventListener('click', function() {
+      let element = new Element ()
+      let option = document.createElement('option')
+      option.id = element.id
+      option.value = element.id
+      option.selected = ''
+      option.textContent = `Element-${element.id}`
+      element.option = option
+      console.log(element.option)
+      newDropdown.append(option)
+    })
 
-    const textColorDropdown = document.createElement('button')
-    textColorDropdown.className = "w3-button"
-    textColorDropdown.innerText = "Text Color"
+    const currentElementDiv = document.createElement('div')
+    currentElementDiv.className = "w3-bar-item"
 
-    const textColorOptionsDiv = document.createElement('div')
-    textColorOptionsDiv.className = "w3-dropdown-content w3-bar-block w3-card-4"
-    
-    const textColorRed = document.createElement('a')
-    textColorRed.id = "red-text"
-    textColorRed.className = "w3-bar-item w3-button"
-    textColorRed.innerText = "Red"
+    currentElementDiv.append(newDropdown)
 
-    const textColorBlue = document.createElement('a')
-    textColorBlue.id = "blue-text"
-    textColorBlue.className = "w3-bar-item w3-button"
-    textColorBlue.innerText = "Blue"
 
-    const textColorGreen = document.createElement('a')
-    textColorGreen.id = "Green-text"
-    textColorGreen.className = "w3-bar-item w3-button"
-    textColorGreen.innerText = "Green"
 
-    textColorOptionsDiv.append(textColorRed, textColorBlue, textColorGreen)
+    const deleteElement = document.createElement('a')
+    deleteElement.id = "create-element-button"
+    deleteElement.className = "w3-bar-item w3-button"
+    deleteElement.innerText = "Delete current element"
 
-    textColorDiv.append(textColorDropdown, textColorOptionsDiv)
+    deleteElement.addEventListener('click', function() {
+      const elementID = newDropdown.value
+      console.log(elementID)
+      const result = elementAll.find(function(x) {
+        return x.id == elementID
+      })
+      console.log(result)
+      if (result.status === "EDIT") {
+        result.removeAll()
+      } else {
+        result.removeFinalDiv()
+      }
+      newDropdown.removeChild(result.option)
+    })
 
-    editBarDiv.append(saveButton, createElementButton, textColorDiv)
+
+    editBarDiv.append(saveButton, createElementButton, currentElementDiv, deleteElement)
 
     editBarHtmlTag.append(cssHeadTag, EditBarBodyTag)
-
     htmlTag.append(editBarHtmlTag)
-    console.log(createElementButton)
-    
+
+
+    // const textColorDropdown = document.createElement('button')
+    // textColorDropdown.className = "w3-button"
+    // textColorDropdown.innerText = "Text Color"
+    //
+    // const textColorOptionsDiv = document.createElement('div')
+    // textColorOptionsDiv.className = "w3-dropdown-content w3-bar-block w3-card-4"
+    //
+    // const textColorRed = document.createElement('a')
+    // textColorRed.id = "red-text"
+    // textColorRed.className = "w3-bar-item w3-button"
+    // textColorRed.innerText = "Red"
+    //
+    // const textColorBlue = document.createElement('a')
+    // textColorBlue.id = "blue-text"
+    // textColorBlue.className = "w3-bar-item w3-button"
+    // textColorBlue.innerText = "Blue"
+    //
+    // const textColorGreen = document.createElement('a')
+    // textColorGreen.id = "Green-text"
+    // textColorGreen.className = "w3-bar-item w3-button"
+    // textColorGreen.innerText = "Green"
+
+    // textColorOptionsDiv.append(textColorRed, textColorBlue, textColorGreen)
+    // htmlTag.append(newDropdown)
+
 }
