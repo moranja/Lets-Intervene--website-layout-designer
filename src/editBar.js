@@ -30,7 +30,7 @@ function renderEditBar(){
 
     const saveButton = document.createElement('a')
     saveButton.id = "save-button"
-    saveButton.className = "w3-bar-item w3-button"
+    saveButton.className = "w3-bar-item w3-button w3-right"
     saveButton.innerText = "Save Layout"
 
     const createElementButton = document.createElement('a')
