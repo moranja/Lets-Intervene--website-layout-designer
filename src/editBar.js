@@ -1,28 +1,9 @@
 function renderEditBar(){
 
-    const htmlTag = document.querySelector('#html')
-
-    const editBarHtmlTag= document.createElement('html')
-
-    const cssHeadTag = document.createElement('head')  
-
-    const cssTitleTag = document.createElement('title')
-    cssTitleTag.innerText = "W3.CSS"
-
-    const cssMetaTag = document.createElement('meta')
-    cssMetaTag.name = "viewport"
-    cssMetaTag.content = "width=device-width, initial-scale=1"
-
-    const cssLinkTag = document.createElement('link')
-    cssLinkTag.setAttribute('rel', 'stylesheet')
-    cssLinkTag.setAttribute('href', "https://www.w3schools.com/w3css/4/w3.css")
-    cssHeadTag.append(cssTitleTag, cssMetaTag, cssLinkTag)
-
-    const EditBarBodyTag = document.createElement('body')
+    const body = document.querySelector('#body')
 
     const mainContainer = document.createElement('div')
     mainContainer.className = "w3-container"
-    EditBarBodyTag.append(mainContainer)
 
     const editBarDiv = document.createElement('div')
     editBarDiv.className = "w3-bar w3-blue"
@@ -69,9 +50,5 @@ function renderEditBar(){
 
     editBarDiv.append(saveButton, createElementButton, textColorDiv)
 
-    editBarHtmlTag.append(cssHeadTag, EditBarBodyTag)
-
-    htmlTag.append(editBarHtmlTag)
-    console.log(createElementButton)
-    
+    document.body.append(mainContainer)
 }

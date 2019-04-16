@@ -1,9 +1,9 @@
 class Layout {
-    constructor(name, createdBy, img, html){
-        this.img = img
+    constructor(name, user_id, html, userName){
         this.name = name
-        this.createdBy = createdBy
+        this.user_id = user_id
         this.html = html
+        this.userName = userName
     }
     render(){
         const layoutDiv = document.createElement('div')
@@ -26,7 +26,8 @@ class Layout {
         layoutName.innerText = this.name
         hoveredDiv.append(layoutName)
         const createdBy = document.createElement('h2')
-        createdBy.innerText = this.createdBy
+        console.log(this)
+        createdBy.innerText = this.userName
         hoveredDiv.append(createdBy)
         document.body.append(layoutDiv)           
     }

@@ -2,7 +2,7 @@ function renderNavBar(){
     const body = document.querySelector('#body')
     const navBarDiv = document.createElement('div')
     navBarDiv.className = "w3-bar w3-border w3-large w3-blue"
-    body.append(navBarDiv)
+    document.body.prepend(navBarDiv)
 
     const layoutsButton = document.createElement('a')
     layoutsButton.className = "w3-bar-item w3-button w3-padding-16"
