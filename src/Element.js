@@ -1,7 +1,7 @@
 let i = 1
 class Element {
-  constructor() {
-    this.body = document.querySelector('body')
+  constructor(body) {
+    this.body = body
     this.leftEdge = 100
     this.rightEdge = 200
     this.bottomEdge = 100
@@ -131,6 +131,18 @@ class Element {
       this.rightDistance = this.rightEdge-e.clientX
       this.topDistance = this.topEdge-(window.innerHeight-e.clientY)
     })
+    this.interior.addEventListener('dblclick', (e) => {
+      e.preventDefault()
+      console.log('test')
+      const form = document.createElement('form')
+      //render a form here for the user to fill in options
+      //https://www.w3schools.com/howto/howto_js_popup_form.asp
+      form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        //set the options from the form
+        //lock in the element
+      })
+    }) //edit options form event listener
   } //adds the event listeners that activate the mousemove event listener when you click on a div
 
   createFinalDiv() {
