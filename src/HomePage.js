@@ -1,8 +1,8 @@
-document.addEventListener('DOMContentLoaded', function() {
-    console.log(renderHomePage)
-    renderHomePage()
-    renderNavBar()
-})
+// document.addEventListener('DOMContentLoaded', function() {
+//     console.log(renderHomePage)
+//     renderHomePage()
+//     renderNavBar()
+// })
 
 function renderHomePage(){
     const phrase = document.createElement('p')

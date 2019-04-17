@@ -27,6 +27,10 @@ function renderNavBar(){
     createLayoutButton.className = "w3-bar-item w3-button w3-padding-16"
     createLayoutButton.id = "create-layouts-button"
     createLayoutButton.innerText = "Create New Layout"
+    createLayoutButton.addEventListener('click', function(){
+        clearPage()
+        renderEditBar()
+    })
 
     const yourPageButton = document.createElement('a')
     yourPageButton.className = "w3-bar-item w3-button w3-padding-16"

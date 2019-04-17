@@ -14,3 +14,5 @@ function renderAllLayouts(){
         renderNavBar()
     })
 };
+
+//deprecated?

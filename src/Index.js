@@ -1,9 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const h2 = document.createElement('h2')
-  h2.textContent = "Design a new Layout"
-  h2.addEventListener('click', function() {
-    renderEditBar()
-  })
-  const body = document.querySelector('body')
-  body.append(h2)
+  renderNavBar()
+
+  function renderAllLayouts(){
+      layoutsURL = 'http://localhost:3000/layouts'
+      fetch(layoutsURL)
+      .then(function(res){
+          return res.json()
+      })
+      .then(function(layouts){
+          layouts.forEach(function(layout){
+              const newLayout = new Layout(layout.name, layout.user_id, layout.html, layout.user.name)
+              newLayout.render()
+          })
+      })
+      .then(function(){
+      })
+  };
 })
