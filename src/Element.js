@@ -111,26 +111,22 @@ class Element {
     this.leftSide.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.leftEdgeIsMoving = true
-      currentElement = this
-      setDropdown()
+      setDropdown(this)
     })
     this.bottomSide.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.bottomEdgeIsMoving = true
-      currentElement = this
-      setDropdown()
+      setDropdown(this)
     })
     this.rightSide.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.rightEdgeIsMoving = true
-      currentElement = this
-      setDropdown()
+      setDropdown(this)
     })
     this.topSide.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.topEdgeIsMoving = true
-      currentElement = this
-      setDropdown()
+      setDropdown(this)
     })
     this.interior.addEventListener('mousedown', (e) => {
       e.preventDefault()
@@ -139,14 +135,11 @@ class Element {
       this.bottomDistance = (window.innerHeight-e.clientY)-this.bottomEdge
       this.rightDistance = this.rightEdge-e.clientX
       this.topDistance = this.topEdge-(window.innerHeight-e.clientY)
-      currentElement = this
-      setDropdown()
+      setDropdown(this)
     })
     this.interior.addEventListener('dblclick', (e) => {
       e.preventDefault()
       console.log('test')
-      currentElement = this
-      setDropdown()
       const elementTag = document.querySelector('#element-tag')
       elementTag.value = this.tagName
       document.querySelector('#id01').style.display='block'
@@ -154,7 +147,7 @@ class Element {
   } //adds the event listeners that activate the mousemove event listener when you click on a div
 
   createFinalDiv() {
-    let div = document.createElement('div')
+    let div = document.createElement(`${this.tagName}`)
     div.style.position = 'absolute'
     div.style.background = 'white'
     div.style.border = "thin dashed black"
@@ -162,6 +155,14 @@ class Element {
     div.style.width = `${(this.rightEdge-this.leftEdge+this.borderWidth)/window.innerWidth*100}%`
     div.style.left = `${(this.leftEdge)/window.innerWidth*100}%`
     div.style.bottom = `${(this.bottomEdge)/window.innerHeight*100}%`
+    div.addEventListener('click', (e) => {
+      e.preventDefault()
+      setDropdown(this)
+    })
+    div.addEventListener('dblclick', (e) => {
+      e.preventDefault()
+      this.editElement()
+    }) //double clicking a finalized element puts it back in edit mode
     return div
   } //creates the real div the user expects, after they are done modifying it, and converts it to percentage
 
