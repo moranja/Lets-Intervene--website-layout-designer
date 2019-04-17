@@ -11,7 +11,7 @@ class Layout {
         
         const smallerImg = document.createElement('img')
         smallerImg.style = "width:33%"
-        smallerImg.src = "http://en.wikipedia.org/"
+        smallerImg.src = "https://picsum.photos/200/300/?random"
         layoutDiv.append(smallerImg)
 
         const hoveredDiv = document.createElement('div')
@@ -20,13 +20,12 @@ class Layout {
         layoutDiv.append(hoveredDiv)
         const largerImg = document.createElement('img')
         largerImg.style = "width:100%"
-        largerImg.src = this.img
+        largerImg.src = smallerImg.src
         hoveredDiv.append(largerImg)
         const layoutName = document.createElement('h2')
         layoutName.innerText = this.name
         hoveredDiv.append(layoutName)
         const createdBy = document.createElement('h2')
-        console.log(this)
         createdBy.innerText = this.userName
         hoveredDiv.append(createdBy)
         document.body.append(layoutDiv)           

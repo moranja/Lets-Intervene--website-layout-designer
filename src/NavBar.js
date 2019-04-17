@@ -8,11 +8,20 @@ function renderNavBar(){
     homePageButton.className = "w3-bar-item w3-button w3-padding-16"
     homePageButton.id = "home-page-button"
     homePageButton.innerText = 'Home Page'
+    homePageButton.addEventListener('click', function(){
+        clearPage()
+        renderHomePage()
+        renderNavBar()
+    })
 
     const layoutsButton = document.createElement('a')
     layoutsButton.className = "w3-bar-item w3-button w3-padding-16"
     layoutsButton.id = "layouts-button"
     layoutsButton.innerText = 'Layouts'
+    layoutsButton.addEventListener('click', function(){
+        clearPage()
+        renderAllLayouts()
+    })
 
     const createLayoutButton = document.createElement('a')
     createLayoutButton.className = "w3-bar-item w3-button w3-padding-16"
@@ -25,4 +34,8 @@ function renderNavBar(){
     yourPageButton.innerText = "Your Page"
 
     navBarDiv.append(homePageButton, layoutsButton, createLayoutButton, yourPageButton)
+}
+
+function clearPage(){
+    document.body.innerHTML = ''
 }
