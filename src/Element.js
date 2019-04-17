@@ -139,7 +139,6 @@ class Element {
     })
     this.interior.addEventListener('dblclick', (e) => {
       e.preventDefault()
-      console.log('test')
       const elementTag = document.querySelector('#element-tag')
       elementTag.value = this.tagName
       document.querySelector('#id01').style.display='block'

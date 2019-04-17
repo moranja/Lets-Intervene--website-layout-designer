@@ -175,20 +175,64 @@ function renderElementForm() {
   tagInput.type = "text"
   tagInput.id = "element-tag"
 
+  elementForm.append(tagInput)
+
+  tagInput.addEventListener('input', function(e) {
+    if (tagInput.value === 'img') {
+      if (!document.querySelector("#img-src")) {
+        const imgOption = document.createElement('input')
+        imgOption.type = "text"
+        imgOption.id = "img-src"
+
+        elementForm.removeChild(submitButton)
+        elementForm.append(imgOption)
+        elementForm.append(submitButton)
+      }
+    } else if (tagInput.value === 'h1') {
+      if (!document.querySelector("#h1-text")) {
+        const h1Option = document.createElement('input')
+        h1Option.type = "text"
+        h1Option.id = "h1-text"
+
+        elementForm.removeChild(submitButton)
+        elementForm.append(h1Option)
+        elementForm.append(submitButton)
+      }
+    } else if (tagInput.value === 'h2') {
+      if (!document.querySelector("#h2-text")) {
+        const h2Option = document.createElement('input')
+        h2Option.type = "text"
+        h2Option.id = "h2-text"
+
+        elementForm.removeChild(submitButton)
+        elementForm.append(h2Option)
+        elementForm.append(submitButton)
+      }
+    } else {
+      if (!!document.querySelector("#img-src")) {
+        imgOption = document.querySelector("#img-src")
+        elementForm.removeChild(imgOption)
+      } else if (!!document.querySelector("#h1-text")) {
+        h1Option = document.querySelector("#h1-text")
+        elementForm.removeChild(h1Option)
+      } else if (!!document.querySelector("#h2-text")) {
+        h2Option = document.querySelector("#h2-text")
+        elementForm.removeChild(h2Option)
+      }
+    }
+  })
+
   const submitButton = document.createElement('input')
   submitButton.type = "submit"
   submitButton.value = "submit"
 
   elementForm.addEventListener('submit', (e) => {
     e.preventDefault()
-    console.log(tagInput.value)
-    console.log(currentElement)
     currentElement.tagName = tagInput.value
     document.querySelector('#id01').style.display= "none"
     currentElement.lockInElement()
   })
 
-  elementForm.append(tagInput)
   elementForm.append(submitButton)
 
   containerDiv.append(exitButton)
