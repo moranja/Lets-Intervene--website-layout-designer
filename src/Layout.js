@@ -11,7 +11,7 @@ class Layout {
         
         const smallerImg = document.createElement('img')
         smallerImg.style = "width:33%"
-        smallerImg.src = this.img
+        smallerImg.src = "http://en.wikipedia.org/"
         layoutDiv.append(smallerImg)
 
         const hoveredDiv = document.createElement('div')
