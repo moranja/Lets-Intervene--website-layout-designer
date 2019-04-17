@@ -1,3 +1,5 @@
+let currentElement = ""
+
 function renderEditPage(){
     const body = document.querySelector('body')
     body.innerHTML = ""
@@ -33,6 +35,7 @@ function renderEditPage(){
     mainContainer.append(editBarDiv)
 
     const newDropdown = document.createElement('select')
+    newDropdown.id = "element-dropdown"
 
     const createElementButton = document.createElement('a')
     createElementButton.id = "create-element-button"
@@ -41,6 +44,7 @@ function renderEditPage(){
 
     createElementButton.addEventListener('click', function() {
       let element = new Element (workspaceDiv)
+      currentElement = element
       let option = document.createElement('option')
       option.id = element.id
       option.value = element.id
@@ -49,6 +53,7 @@ function renderEditPage(){
       element.option = option
       console.log(element.option)
       newDropdown.append(option)
+      setDropdown()
     })
 
     const currentElementDiv = document.createElement('div')
@@ -117,35 +122,70 @@ function renderEditPage(){
     document.body.append(mainContainer)
     document.body.append(workspaceDiv)
 
-    const formDiv = document.createElement('div')
-    formDiv.id = "id01"
-    formDiv.className = "w3-modal"
 
-    const contentDiv = document.createElement('div')
-    contentDiv.className = "w3-modal-content"
+    //creating modal form
+    const form = renderElementForm()
+    document.body.append(form)
 
-    const containerDiv = document.createElement('div')
-    containerDiv.className = "w3-container"
-
-    const exitButton = document.createElement('span')
-    exitButton.className = "w3-button w3-display-topright"
-    exitButton.addEventListener('click', function() {
-      document.querySelector('#id01').style.display= "none"
-    })
-
-    const text = document.createElement('p')
-    text.textContent = "test"
-
-    containerDiv.append(exitButton)
-    containerDiv.append(text)
-    contentDiv.append(containerDiv)
-    formDiv.append(contentDiv)
 
 }
 
+function renderElementForm() {
+  const formDiv = document.createElement('div')
+  formDiv.id = "id01"
+  formDiv.className = "w3-modal"
 
+  const contentDiv = document.createElement('div')
+  contentDiv.className = "w3-modal-content"
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault()
-  //set the options from the form
-  //lock in the element
+  const containerDiv = document.createElement('div')
+  containerDiv.className = "w3-container"
+
+  const exitButton = document.createElement('span')
+  exitButton.className = "w3-button w3-display-topright"
+  exitButton.addEventListener('click', function() {
+    document.querySelector('#id01').style.display= "none"
+  })
+
+  const text = document.createElement('p')
+  text.textContent = "Finalize element"
+
+  const elementForm = document.createElement('form')
+  const tagInput = document.createElement('input')
+  tagInput.type = "text"
+  tagInput.id = "element-tag"
+
+  const submitButton = document.createElement('input')
+  submitButton.type = "submit"
+  submitButton.value = "submit"
+
+  elementForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    console.log(tagInput.value)
+    console.log(currentElement)
+    currentElement.tagName = tagInput.value
+    document.querySelector('#id01').style.display= "none"
+  })
+
+  elementForm.append(tagInput)
+  elementForm.append(submitButton)
+
+  containerDiv.append(exitButton)
+  containerDiv.append(text)
+  containerDiv.append(elementForm)
+  contentDiv.append(containerDiv)
+  formDiv.append(contentDiv)
+  return formDiv
+}
+
+function setDropdown(){
+  const dropdown = document.querySelector('#element-dropdown')
+  dropdown.value = currentElement.id
+}
+
+//
+//
+// form.addEventListener('submit', (e) => {
+//   e.preventDefault()
+//   //set the options from the form
+//   //lock in the element

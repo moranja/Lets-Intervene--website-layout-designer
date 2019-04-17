@@ -12,6 +12,7 @@ class Element {
     this.status = "EDIT"
     this.id = i++
     this.option = ""
+    this.tagName = "div"
     elementAll.push(this)
 
     document.addEventListener('mousemove', (e) => {
@@ -110,18 +111,26 @@ class Element {
     this.leftSide.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.leftEdgeIsMoving = true
+      currentElement = this
+      setDropdown()
     })
     this.bottomSide.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.bottomEdgeIsMoving = true
+      currentElement = this
+      setDropdown()
     })
     this.rightSide.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.rightEdgeIsMoving = true
+      currentElement = this
+      setDropdown()
     })
     this.topSide.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.topEdgeIsMoving = true
+      currentElement = this
+      setDropdown()
     })
     this.interior.addEventListener('mousedown', (e) => {
       e.preventDefault()
@@ -130,13 +139,17 @@ class Element {
       this.bottomDistance = (window.innerHeight-e.clientY)-this.bottomEdge
       this.rightDistance = this.rightEdge-e.clientX
       this.topDistance = this.topEdge-(window.innerHeight-e.clientY)
+      currentElement = this
+      setDropdown()
     })
     this.interior.addEventListener('dblclick', (e) => {
       e.preventDefault()
       console.log('test')
-      const form = document.createElement('form')
-      document.getElementbyId('id01').style.display='block'
-      })
+      currentElement = this
+      setDropdown()
+      const elementTag = document.querySelector('#element-tag')
+      elementTag.value = this.tagName
+      document.querySelector('#id01').style.display='block'
     }) //edit options form event listener
   } //adds the event listeners that activate the mousemove event listener when you click on a div
 
