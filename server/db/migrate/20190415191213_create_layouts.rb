@@ -4,7 +4,7 @@ class CreateLayouts < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :img
       t.belongs_to :user, foreign_key: true
-      t.text :html
+      t.string :html
 
       t.timestamps
     end
