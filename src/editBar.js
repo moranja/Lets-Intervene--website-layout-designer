@@ -2,6 +2,9 @@ function renderEditBar(){
     const body = document.querySelector('body')
     body.innerHTML = ""
 
+    const workspaceDiv = document.createElement('div')
+    workspaceDiv.id = "layout-workspace"
+
     const htmlTag = document.querySelector('#html')
 
     const editBarHtmlTag= document.createElement('html')
@@ -39,7 +42,7 @@ function renderEditBar(){
         element.lockInElement()
       })
       console.log(body.innerHTML)
-      window.alert(body.innerHTML)
+      window.alert(workspaceDiv.innerHTML)
     })
 
     const newDropdown = document.createElement('select')
@@ -50,7 +53,7 @@ function renderEditBar(){
     createElementButton.innerText = "Create New Element"
 
     createElementButton.addEventListener('click', function() {
-      let element = new Element ()
+      let element = new Element (workspaceDiv)
       let option = document.createElement('option')
       option.id = element.id
       option.value = element.id
@@ -94,6 +97,7 @@ function renderEditBar(){
     htmlTag.append(editBarHtmlTag)
 
     document.body.append(mainContainer)
+    document.body.append(workspaceDiv)
 
 
     // const textColorDropdown = document.createElement('button')
