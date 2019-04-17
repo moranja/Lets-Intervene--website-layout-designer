@@ -1,11 +1,5 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//     console.log(renderHomePage)
-//     renderHomePage()
-//     renderNavBar()
-// })
-
 function renderHomePage(){
-    const phrase = document.createElement('p')
-    phrase.innerText = 'Hello World!'
-    document.body.append(phrase)
+    const welcomePhrase = document.createElement('h1')
+    welcomePhrase.innerText = "Welcome to our Layout Designer"
+    document.body.append(welcomePhrase)
 }

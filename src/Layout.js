@@ -8,6 +8,10 @@ class Layout {
     render(){
         const layoutDiv = document.createElement('div')
         layoutDiv.className = "w3-dropdown-hover"
+        layoutDiv.addEventListener('click', function(){
+            document.body.innerHTML = this.html
+            renderNavBar()
+        })
         
         const smallerImg = document.createElement('img')
         smallerImg.style = "width:33%"
@@ -18,9 +22,9 @@ class Layout {
         hoveredDiv.className = "w3-dropdown-content w3-card-4"
         hoveredDiv.style = "width:50px"
         layoutDiv.append(hoveredDiv)
-        const largerImg = document.createElement('img')
+        const largerImg = document.createElement('iframe')
         largerImg.style = "width:100%"
-        largerImg.src = smallerImg.src
+        largerImg.srcdoc = this.html
         hoveredDiv.append(largerImg)
         const layoutName = document.createElement('h2')
         layoutName.innerText = this.name

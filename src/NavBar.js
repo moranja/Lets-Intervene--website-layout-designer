@@ -36,6 +36,10 @@ function renderNavBar(){
     yourPageButton.className = "w3-bar-item w3-button w3-padding-16"
     yourPageButton.id = "your-page-button"
     yourPageButton.innerText = "Your Page"
+    yourPageButton.addEventListener('click', function(){
+        clearPage()
+        renderUserPage()
+    })
 
     navBarDiv.append(homePageButton, layoutsButton, createLayoutButton, yourPageButton)
 }
