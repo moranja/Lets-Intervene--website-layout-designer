@@ -32,19 +32,6 @@ function renderEditBar(){
     editBarDiv.className = "w3-bar w3-blue"
     mainContainer.append(editBarDiv)
 
-    const saveButton = document.createElement('a')
-    saveButton.id = "save-button"
-    saveButton.className = "w3-bar-item w3-button w3-right"
-    saveButton.innerText = "Save Layout"
-
-    saveButton.addEventListener('click', function() {
-      elementAll.forEach(function(element) {
-        element.lockInElement()
-      })
-      console.log(body.innerHTML)
-      window.alert(workspaceDiv.innerHTML)
-    })
-
     const newDropdown = document.createElement('select')
 
     const createElementButton = document.createElement('a')
@@ -69,8 +56,6 @@ function renderEditBar(){
 
     currentElementDiv.append(newDropdown)
 
-
-
     const deleteElement = document.createElement('a')
     deleteElement.id = "create-element-button"
     deleteElement.className = "w3-bar-item w3-button"
@@ -91,38 +76,45 @@ function renderEditBar(){
       newDropdown.removeChild(result.option)
     })
 
-    editBarDiv.append(saveButton, createElementButton, currentElementDiv, deleteElement)
+    const saveButton = document.createElement('a')
+    saveButton.id = "save-button"
+    saveButton.className = "w3-bar-item w3-button w3-right"
+    saveButton.innerText = "Save Layout"
+
+    saveButton.addEventListener('click', function() {
+      elementAll.forEach(function(element) {
+        element.lockInElement()
+      })
+      fetch('http://localhost:3000/layouts', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: "New Layout",
+          user_id: 4,
+          html: workspaceDiv.innerHTML
+        })
+      })
+      .then(res => res.json())
+      .then(function(res){
+        console.log(workspaceDiv.innerHTML)
+        console.log(res)
+        window.alert(workspaceDiv.innerHTML)
+        //
+        clearPage()
+        renderHomePage()
+        renderNavBar()
+        // replace these with taking you to the layout page you just created
+      })
+    })
+
+    editBarDiv.append(createElementButton, currentElementDiv, deleteElement, saveButton)
 
     editBarHtmlTag.append(cssHeadTag, EditBarBodyTag)
     htmlTag.append(editBarHtmlTag)
 
     document.body.append(mainContainer)
     document.body.append(workspaceDiv)
-
-
-    // const textColorDropdown = document.createElement('button')
-    // textColorDropdown.className = "w3-button"
-    // textColorDropdown.innerText = "Text Color"
-    //
-    // const textColorOptionsDiv = document.createElement('div')
-    // textColorOptionsDiv.className = "w3-dropdown-content w3-bar-block w3-card-4"
-    //
-    // const textColorRed = document.createElement('a')
-    // textColorRed.id = "red-text"
-    // textColorRed.className = "w3-bar-item w3-button"
-    // textColorRed.innerText = "Red"
-    //
-    // const textColorBlue = document.createElement('a')
-    // textColorBlue.id = "blue-text"
-    // textColorBlue.className = "w3-bar-item w3-button"
-    // textColorBlue.innerText = "Blue"
-    //
-    // const textColorGreen = document.createElement('a')
-    // textColorGreen.id = "Green-text"
-    // textColorGreen.className = "w3-bar-item w3-button"
-    // textColorGreen.innerText = "Green"
-
-    // textColorOptionsDiv.append(textColorRed, textColorBlue, textColorGreen)
-    // htmlTag.append(newDropdown)
 
 }
