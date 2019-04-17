@@ -33,18 +33,17 @@ function renderEditPage(){
     const editBarDiv = document.createElement('div')
     editBarDiv.className = "w3-bar w3-blue"
     mainContainer.append(editBarDiv)
-
+    // Creating dropdown
     const newDropdown = document.createElement('select')
     newDropdown.id = "element-dropdown"
-
+    // New Button
     const createElementButton = document.createElement('a')
     createElementButton.id = "create-element-button"
     createElementButton.className = "w3-bar-item w3-button"
-    createElementButton.innerText = "Create New Element"
+    createElementButton.innerText = "Create Element"
 
     createElementButton.addEventListener('click', function() {
       let element = new Element (workspaceDiv)
-      currentElement = element
       let option = document.createElement('option')
       option.id = element.id
       option.value = element.id
@@ -53,34 +52,39 @@ function renderEditPage(){
       element.option = option
       console.log(element.option)
       newDropdown.append(option)
-      setDropdown()
+      setDropdown(element)
     })
 
     const currentElementDiv = document.createElement('div')
     currentElementDiv.className = "w3-bar-item"
 
     currentElementDiv.append(newDropdown)
+    // Edit Button
+    const editElement = document.createElement('a')
+    editElement.id = "edit-element-button"
+    editElement.className = "w3-bar-item w3-button"
+    editElement.innerText = "Edit"
 
+    editElement.addEventListener('click', function() {
+      if (currentElement.status === "SAVED") {
+        currentElement.editElement()
+      }
+    })
+    // Delete Button
     const deleteElement = document.createElement('a')
-    deleteElement.id = "create-element-button"
+    deleteElement.id = "delete-element-button"
     deleteElement.className = "w3-bar-item w3-button"
-    deleteElement.innerText = "Delete current element"
+    deleteElement.innerText = "Delete"
 
     deleteElement.addEventListener('click', function() {
-      const elementID = newDropdown.value
-      console.log(elementID)
-      const result = elementAll.find(function(x) {
-        return x.id == elementID
-      })
-      console.log(result)
-      if (result.status === "EDIT") {
-        result.removeAll()
+      if (currentElement.status === "EDIT") {
+        currentElement.removeAll()
+        newDropdown.removeChild(currentElement.option)
       } else {
-        result.removeFinalDiv()
+        window.alert("Can't delete a finalized element! If you want to delete it, return it to edit mode first.")
       }
-      newDropdown.removeChild(result.option)
     })
-
+    // Save Button
     const saveButton = document.createElement('a')
     saveButton.id = "save-button"
     saveButton.className = "w3-bar-item w3-button w3-right"
@@ -114,7 +118,7 @@ function renderEditPage(){
       })
     })
 
-    editBarDiv.append(createElementButton, currentElementDiv, deleteElement, saveButton)
+    editBarDiv.append(createElementButton, currentElementDiv, editElement, deleteElement, saveButton)
 
     editBarHtmlTag.append(cssHeadTag, EditBarBodyTag)
     htmlTag.append(editBarHtmlTag)
@@ -122,12 +126,8 @@ function renderEditPage(){
     document.body.append(mainContainer)
     document.body.append(workspaceDiv)
 
-
-    //creating modal form
     const form = renderElementForm()
     document.body.append(form)
-
-
 }
 
 function renderElementForm() {
@@ -165,6 +165,7 @@ function renderElementForm() {
     console.log(currentElement)
     currentElement.tagName = tagInput.value
     document.querySelector('#id01').style.display= "none"
+    currentElement.lockInElement()
   })
 
   elementForm.append(tagInput)
@@ -178,14 +179,8 @@ function renderElementForm() {
   return formDiv
 }
 
-function setDropdown(){
+function setDropdown(element){
+  currentElement = element
   const dropdown = document.querySelector('#element-dropdown')
   dropdown.value = currentElement.id
 }
-
-//
-//
-// form.addEventListener('submit', (e) => {
-//   e.preventDefault()
-//   //set the options from the form
-//   //lock in the element
