@@ -87,6 +87,19 @@ function renderEditPage(){
     saveButton.innerText = "Save Layout"
 
     saveButton.addEventListener('click', function() {
+      // const submitLayoutForm = document.querySelector('#new-layout-form')
+      // if(form.type.value == "blog"){
+      //   src = "https://www.propertyme.com.au/media/k2/items/cache/817a0b87c8b4a5b09390d4c2ae24ca96_L.jpg"
+      // }
+      // else if(form.type.value == "social media"){
+      //   src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrDHI8LBMm6x-ZWYkK62UjYaIMsPulQimDIdddyeUiHGT4Uv8lnA"
+      // }
+      // else if(form.type.value == "video player"){
+      //   src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm1yt3f-Yxzj4cNbk_N65vIOwVo11KcQUbuFInXpE8cBjDNqzG0w"
+      // }
+      // else if(form.type.value == "notes"){
+      //   src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhudDdOmBxnlzN2zN36yABSJ7s84LXR_luPZQihD3AyC8XBmq4YQ"
+      // }
       elementAll.forEach(function(element) {
         element.lockInElement()
       })
@@ -97,6 +110,7 @@ function renderEditPage(){
         },
         body: JSON.stringify({
           name: "New Layout", //form.name.value
+          //img: src,
           user_id: 4,
           html: workspaceDiv.innerHTML
         })
