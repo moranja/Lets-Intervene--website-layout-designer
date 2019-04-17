@@ -20,6 +20,6 @@ class LayoutsController < ApplicationController
     private
 
       def layout_attributes
-        params.permit(:name, :user_id, :html)
+        params.permit(:name, :user_id, :img, :html)
       end
 end

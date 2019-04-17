@@ -6,7 +6,7 @@ function renderAllLayouts(){
     })
     .then(function(layouts){
         layouts.forEach(function(layout){
-            const newLayout = new Layout(layout.name, layout.user_id, layout.html, layout.user.name)
+            const newLayout = new Layout(layout.name, layout.user_id, layout.img, layout.html, layout.user.name)
             newLayout.render()
         })
     })

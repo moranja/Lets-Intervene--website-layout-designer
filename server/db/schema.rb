@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2019_04_15_191213) do
 
   create_table "layouts", force: :cascade do |t|
     t.string "name"
+    t.string "img"
     t.integer "user_id"
     t.text "html"
     t.datetime "created_at", null: false

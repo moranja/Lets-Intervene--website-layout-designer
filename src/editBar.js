@@ -91,44 +91,48 @@ function renderEditPage(){
     saveButton.innerText = "Save Layout"
 
     saveButton.addEventListener('click', function() {
-      // const submitLayoutForm = document.querySelector('#new-layout-form')
-      // if(form.type.value == "blog"){
-      //   src = "https://www.propertyme.com.au/media/k2/items/cache/817a0b87c8b4a5b09390d4c2ae24ca96_L.jpg"
-      // }
-      // else if(form.type.value == "social media"){
-      //   src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrDHI8LBMm6x-ZWYkK62UjYaIMsPulQimDIdddyeUiHGT4Uv8lnA"
-      // }
-      // else if(form.type.value == "video player"){
-      //   src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm1yt3f-Yxzj4cNbk_N65vIOwVo11KcQUbuFInXpE8cBjDNqzG0w"
-      // }
-      // else if(form.type.value == "notes"){
-      //   src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhudDdOmBxnlzN2zN36yABSJ7s84LXR_luPZQihD3AyC8XBmq4YQ"
-      // }
-      elementAll.forEach(function(element) {
-        element.lockInElement()
-      })
-      fetch('http://localhost:3000/layouts', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: "New Layout", //form.name.value
-          //img: src,
-          user_id: 4,
-          html: workspaceDiv.innerHTML
+      document.querySelector('#id02').style.display='block'
+      const submitLayoutForm = document.querySelector('#new-layout-form')
+      submitLayoutForm.addEventListener('submit', function(){
+        let src = ""  
+        if(submitLayoutForm.type.value == "Blog"){
+          src = "https://www.propertyme.com.au/media/k2/items/cache/817a0b87c8b4a5b09390d4c2ae24ca96_L.jpg"
+        }
+        else if(submitLayoutForm.type.value == "Social Media"){
+          src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrDHI8LBMm6x-ZWYkK62UjYaIMsPulQimDIdddyeUiHGT4Uv8lnA"
+        }
+        else if(submitLayoutForm.type.value == "Video Player"){
+          src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTm1yt3f-Yxzj4cNbk_N65vIOwVo11KcQUbuFInXpE8cBjDNqzG0w"
+        }
+        else if(submitLayoutForm.type.value == "Notes"){
+          src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhudDdOmBxnlzN2zN36yABSJ7s84LXR_luPZQihD3AyC8XBmq4YQ"
+        }
+        elementAll.forEach(function(element) {
+          element.lockInElement()
         })
-      })
-      .then(res => res.json())
-      .then(function(res){
-        console.log(workspaceDiv.innerHTML)
-        console.log(res)
-        window.alert(workspaceDiv.innerHTML)
-        //
-        clearPage()
-        renderHomePage()
-        renderNavBar()
-        // replace these with taking you to the layout page you just created
+        fetch('http://localhost:3000/layouts', {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: submitLayoutForm.name.value,
+            img: src,
+            user_id: 3,
+            html: workspaceDiv.innerHTML
+          })
+          
+        })
+        .then(res => res.json())
+        .then(function(res){
+          console.log(workspaceDiv.innerHTML)
+          console.log(res)
+          window.alert(workspaceDiv.innerHTML)
+          clearPage()
+          renderHomePage()
+          renderNavBar()
+          // replace these with taking you to the layout page you just created 
+        })
       })
     })
 
@@ -142,6 +146,8 @@ function renderEditPage(){
 
     const form = renderElementForm()
     document.body.append(form)
+    const saveDiv = renderSaveDiv()
+    document.body.append(saveDiv)
 }
 
 function renderElementForm() {
@@ -191,6 +197,47 @@ function renderElementForm() {
   contentDiv.append(containerDiv)
   formDiv.append(contentDiv)
   return formDiv
+}
+
+function renderSaveDiv(){
+
+  const saveDiv = document.createElement('div')
+  saveDiv.id = "id02"
+  saveDiv.className = "w3-modal"
+
+  const contentDiv = document.createElement('div')
+  contentDiv.className = "w3-modal-content"
+
+  const containerDiv = document.createElement('div')
+  containerDiv.className = "w3-container"
+
+  containerDiv.innerHTML = `<form  id='new-layout-form' class="center">
+    <div class="form-group">
+        <label>Layout Name</label>
+        <input type="text" class="form-control" id="layout-name" name='name' placeholder="Name Your Layout">
+    </div>
+    <div class="form-group">
+        <label>Layout Type</label>
+        <select class="form-control" name='type' id="layout-type">
+        <option>Blog</option>
+        <option>Social Media</option>
+        <option>Video Player</option>
+        <option>Notes</option>
+        </select>
+    </div>
+    <input type='submit'>
+  </form>`
+
+  const exitButton = document.createElement('span')
+  exitButton.className = "w3-button w3-display-topright"
+  exitButton.addEventListener('click', function() {
+    document.querySelector('#id02').style.display= "none"
+  })
+
+  containerDiv.prepend(exitButton)
+  contentDiv.append(containerDiv)
+  saveDiv.append(contentDiv)
+  return saveDiv
 }
 
 function setDropdown(element){

@@ -1,5 +1,5 @@
 class Layout {
-    constructor(name, user_id, html, userName){
+    constructor(name, user_id, img, html, userName){
         this.img = img
         this.name = name
         this.user_id = user_id
@@ -19,7 +19,8 @@ class Layout {
         
         const smallerImg = document.createElement('img')
         smallerImg.style = "width:70%"
-        smallerImg.src = "https://picsum.photos/200/300/?random"
+        console.log(this.img)
+        smallerImg.src = this.img
         layoutDiv.append(smallerImg)
 
         const hoveredDiv = document.createElement('div')
