@@ -91,7 +91,7 @@ function renderEditBar(){
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          name: "New Layout",
+          name: "New Layout", //form.name.value
           user_id: 4,
           html: workspaceDiv.innerHTML
         })
