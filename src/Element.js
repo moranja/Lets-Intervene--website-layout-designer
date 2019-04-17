@@ -135,12 +135,7 @@ class Element {
       e.preventDefault()
       console.log('test')
       const form = document.createElement('form')
-      //render a form here for the user to fill in options
-      //https://www.w3schools.com/howto/howto_js_popup_form.asp
-      form.addEventListener('submit', (e) => {
-        e.preventDefault()
-        //set the options from the form
-        //lock in the element
+      document.getElementbyId('id01').style.display='block'
       })
     }) //edit options form event listener
   } //adds the event listeners that activate the mousemove event listener when you click on a div

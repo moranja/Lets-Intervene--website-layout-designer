@@ -29,7 +29,7 @@ function renderNavBar(){
     createLayoutButton.innerText = "Create New Layout"
     createLayoutButton.addEventListener('click', function(){
         clearPage()
-        renderEditBar()
+        renderEditPage()
     })
 
     const yourPageButton = document.createElement('a')

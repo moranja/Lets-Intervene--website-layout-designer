@@ -1,4 +1,4 @@
-function renderEditBar(){
+function renderEditPage(){
     const body = document.querySelector('body')
     body.innerHTML = ""
 
@@ -117,4 +117,35 @@ function renderEditBar(){
     document.body.append(mainContainer)
     document.body.append(workspaceDiv)
 
+    const formDiv = document.createElement('div')
+    formDiv.id = "id01"
+    formDiv.className = "w3-modal"
+
+    const contentDiv = document.createElement('div')
+    contentDiv.className = "w3-modal-content"
+
+    const containerDiv = document.createElement('div')
+    containerDiv.className = "w3-container"
+
+    const exitButton = document.createElement('span')
+    exitButton.className = "w3-button w3-display-topright"
+    exitButton.addEventListener('click', function() {
+      document.querySelector('#id01').style.display= "none"
+    })
+
+    const text = document.createElement('p')
+    text.textContent = "test"
+
+    containerDiv.append(exitButton)
+    containerDiv.append(text)
+    contentDiv.append(containerDiv)
+    formDiv.append(contentDiv)
+
 }
+
+
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault()
+  //set the options from the form
+  //lock in the element
