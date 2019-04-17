@@ -1,14 +1,14 @@
 class LayoutsController < ApplicationController
     def index 
-        @layout = Layout.all
+        render json: = Layout.all
     end 
 
     def show 
-        @layout = Layout.find(params[:id])
+        render json: = Layout.find(params[:id])
     end 
 
     def edit
-        @layout = layout.find(params[:id])
+        render json: = layout.find(params[:id])
         
     end 
 end 

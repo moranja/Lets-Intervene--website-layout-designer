@@ -4,6 +4,7 @@ class CreateLayouts < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :created_by
       t.string :html
+      t.text :html
 
       t.timestamps
     end
