@@ -16,7 +16,7 @@ class Layout {
             document.body.append(workSpaceDiv)
             renderNavBar()
         })
-        
+
         const smallerImg = document.createElement('img')
         smallerImg.style = "width:70%"
         console.log(this.img)
@@ -38,6 +38,6 @@ class Layout {
         createdBy.innerText = "Created By: " + this.userName
         layoutDiv.append(layoutName, createdBy, hoveredDiv)
         hoveredDiv.append(createdBy)
-        document.body.append(layoutDiv)           
+        document.body.append(layoutDiv)
     }
 }

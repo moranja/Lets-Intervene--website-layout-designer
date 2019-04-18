@@ -1,4 +1,6 @@
-let i = 1
+let elementID = 1
+let elementAll = []
+
 class Element {
   constructor(body) {
     this.body = body
@@ -10,7 +12,7 @@ class Element {
     this.renderAll()
     this.createEventListeners()
     this.status = "EDIT"
-    this.id = i++
+    this.id = elementID++
     this.option = ""
     this.tagName = "div"
     this.srcAttribute = ""
@@ -238,5 +240,3 @@ class Element {
     this.appendAllToBody()
   } //allows a user to return to edit a "locked in" element
 }
-
-elementAll = []
