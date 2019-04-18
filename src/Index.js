@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
       my_li.addEventListener('click', () => {
         currentUserID = user.id
         clearPage()
+        renderHomePage()
         renderNavBar()
       })
     })

@@ -37,6 +37,7 @@ class Layout {
         smallerImg.style.width = "200px"
         smallerImg.style.height = "200px"
         smallerImg.src = this.img
+        smallerImg.className = "w3-round"
 
         const hoveredDiv = document.createElement('div')
         hoveredDiv.className = "w3-dropdown-content w3-card-4"

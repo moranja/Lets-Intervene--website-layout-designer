@@ -37,9 +37,19 @@ function renderNavBar(){
     yourPageButton.className = "w3-bar-item w3-button w3-padding-16"
     yourPageButton.id = "your-page-button"
     yourPageButton.innerText = "Your Page"
-    yourPageButton.addEventListener('click', function(){
+    yourPageButton.addEventListener('click', () => {
         clearPage()
-        renderUserPage()
+        renderNavBar()
+        fetch(`http://localhost:3000/users/${currentUserID}`)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(user => {
+            user.layouts.forEach(layout => {
+                const newLayout = new Layout(layout.name, currentUserID, layout.img, layout.html, user.name)
+                newLayout.render()
+            })
+        })
     })
 
     navBarDiv.append(homePageButton, layoutsButton, createLayoutButton, yourPageButton)
