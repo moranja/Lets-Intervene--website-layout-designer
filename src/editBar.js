@@ -3,45 +3,19 @@ let currentElement = ""
 function renderEditPage(){
     const body = document.querySelector('body')
     body.innerHTML = ""
-
-    const workspaceDiv = document.createElement('div')
-    workspaceDiv.id = "layout-workspace"
-
-    const htmlTag = document.querySelector('#html')
-
-    const editBarHtmlTag= document.createElement('html')
-
-    const cssHeadTag = document.createElement('head')
-
-    const cssTitleTag = document.createElement('title')
-    cssTitleTag.innerText = "W3.CSS"
-
-    const cssMetaTag = document.createElement('meta')
-    cssMetaTag.name = "viewport"
-    cssMetaTag.content = "width=device-width, initial-scale=1"
-
-    const cssLinkTag = document.createElement('link')
-    cssLinkTag.setAttribute('rel', 'stylesheet')
-    cssLinkTag.setAttribute('href', "https://www.w3schools.com/w3css/4/w3.css")
-    cssHeadTag.append(cssTitleTag, cssMetaTag, cssLinkTag)
-
-    const EditBarBodyTag = document.createElement('body')
-
+    // Edit Bar container
     const mainContainer = document.createElement('div')
     mainContainer.className = "w3-container"
-
+    // Edit Bar
     const editBarDiv = document.createElement('div')
     editBarDiv.className = "w3-bar w3-blue"
-    mainContainer.append(editBarDiv)
-    // Creating dropdown
-    const newDropdown = document.createElement('select')
-    newDropdown.id = "element-dropdown"
+
     // New Button
     const createElementButton = document.createElement('a')
     createElementButton.id = "create-element-button"
     createElementButton.className = "w3-bar-item w3-button"
     createElementButton.innerText = "Create Element"
-
+    // New Button Event Listener
     createElementButton.addEventListener('click', function() {
       let element = new Element (workspaceDiv)
       let option = document.createElement('option')
@@ -55,27 +29,31 @@ function renderEditPage(){
       setDropdown(element)
     })
 
+    // Dropdown
     const currentElementDiv = document.createElement('div')
     currentElementDiv.className = "w3-bar-item"
-
+    const newDropdown = document.createElement('select')
+    newDropdown.id = "element-dropdown"
     currentElementDiv.append(newDropdown)
+
     // Edit Button
     const editElement = document.createElement('a')
     editElement.id = "edit-element-button"
     editElement.className = "w3-bar-item w3-button"
     editElement.innerText = "Edit"
-
+    // Edit Button Event Listener
     editElement.addEventListener('click', function() {
       if (currentElement.status === "SAVED") {
         currentElement.editElement()
       }
     })
+
     // Delete Button
     const deleteElement = document.createElement('a')
     deleteElement.id = "delete-element-button"
     deleteElement.className = "w3-bar-item w3-button"
     deleteElement.innerText = "Delete"
-
+    // Delete Button Event Listener
     deleteElement.addEventListener('click', function() {
       if (currentElement.status === "EDIT") {
         currentElement.removeAll()
@@ -85,12 +63,13 @@ function renderEditPage(){
         window.alert("Can't delete a finalized element! If you want to delete it, return it to edit mode first.")
       }
     })
+
     // Save Button
     const saveButton = document.createElement('a')
     saveButton.id = "save-button"
     saveButton.className = "w3-bar-item w3-button w3-right"
     saveButton.innerText = "Save Layout"
-
+    // Save Button Event Listener
     saveButton.addEventListener('click', function() {
       document.querySelector('#id02').style.display='block'
       const submitLayoutForm = document.querySelector('#new-layout-form')
@@ -130,27 +109,29 @@ function renderEditPage(){
         .then(function(res){
           document.querySelector('#id02').style.display='none'
           window.alert(workspaceDiv.innerHTML)
-          console.log("test")
+          const newWorkSpaceDiv = document.createElement('div')
+          newWorkSpaceDiv.style.position = "absolute"
+          newWorkSpaceDiv.style.height = `${window.innerHeight-61}px`
+          newWorkSpaceDiv.style.width = `${window.innerWidth}px`
+          newWorkSpaceDiv.innerHTML = workspaceDiv.innerHTML
           clearPage()
           elementID = 1
           elementAll = []
-          //save the elements to the layout? so that it can be edited later?
-          const workSpaceDiv = document.createElement('div')
-          workSpaceDiv.innerHTML = res.html
-          document.body.append(workSpaceDiv)
+          document.body.append(newWorkSpaceDiv)
+          document.body.style.cursor = "default"
           renderNavBar()
         })
       })
     })
-
+    // Assembling Edit Bar
     editBarDiv.append(createElementButton, currentElementDiv, editElement, deleteElement, saveButton)
-
-    editBarHtmlTag.append(cssHeadTag, EditBarBodyTag)
-    htmlTag.append(editBarHtmlTag)
-
+    mainContainer.append(editBarDiv)
     document.body.append(mainContainer)
+    // Adding Workspace
+    const workspaceDiv = document.createElement('div')
+    workspaceDiv.id = "layout-workspace"
     document.body.append(workspaceDiv)
-
+    // Adding the Two Modal Forms
     const form = renderElementForm()
     document.body.append(form)
     const saveDiv = renderSaveDiv()
@@ -204,17 +185,7 @@ function renderElementForm() {
         elementForm.removeChild(submitButton)
         elementForm.append(textOption)
         elementForm.append(submitButton)
-      } //refactored, below should be obsolete
-    // } else if (tagInput.value === 'h2') {
-    //   if (!document.querySelector("#textAttribute")) {
-    //     const h2Option = document.createElement('input')
-    //     h2Option.type = "text"
-    //     h2Option.id = "textAttribute"
-    //
-    //     elementForm.removeChild(submitButton)
-    //     elementForm.append(h2Option)
-    //     elementForm.append(submitButton)
-    //   }
+      }
     } else {
       if (!!document.querySelector("#srcAttribute")) {
         imgOption = document.querySelector("#srcAttribute")

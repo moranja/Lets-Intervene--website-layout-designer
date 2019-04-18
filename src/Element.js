@@ -182,11 +182,14 @@ class Element {
     div.addEventListener('click', (e) => {
       e.preventDefault()
       setDropdown(this)
-    })
+    }) //clicking an element makes it the dropdown selection
     div.addEventListener('dblclick', (e) => {
       e.preventDefault()
       this.editElement()
     }) //double clicking a finalized element puts it back in edit mode
+    div.addEventListener('mouseover', () => {
+      document.body.style.cursor = "default"
+    })
     return div
   } //creates the real div the user expects, after they are done modifying it, and converts it to percentage
 
