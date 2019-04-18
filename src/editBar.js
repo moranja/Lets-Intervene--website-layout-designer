@@ -125,8 +125,6 @@ function renderEditPage(){
         })
         .then(res => res.json())
         .then(function(res){
-          console.log(workspaceDiv.innerHTML)
-          console.log(res)
           window.alert(workspaceDiv.innerHTML)
           clearPage()
           renderHomePage()
