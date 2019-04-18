@@ -132,6 +132,9 @@ function renderEditPage(){
           window.alert(workspaceDiv.innerHTML)
           console.log("test")
           clearPage()
+          elementID = 1
+          elementAll = []
+          //save the elements to the layout? so that it can be edited later?
           const workSpaceDiv = document.createElement('div')
           workSpaceDiv.innerHTML = res.html
           document.body.append(workSpaceDiv)
