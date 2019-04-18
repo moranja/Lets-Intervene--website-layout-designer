@@ -15,6 +15,7 @@ class Element {
     this.tagName = "div"
     this.srcAttribute = ""
     this.textAttribute = ""
+    this.deleted = false
     elementAll.push(this)
 
     document.addEventListener('mousemove', (e) => {

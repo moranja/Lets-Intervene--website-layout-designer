@@ -79,6 +79,7 @@ function renderEditPage(){
     deleteElement.addEventListener('click', function() {
       if (currentElement.status === "EDIT") {
         currentElement.removeAll()
+        currentElement.deleted = true
         newDropdown.removeChild(currentElement.option)
       } else {
         window.alert("Can't delete a finalized element! If you want to delete it, return it to edit mode first.")
@@ -109,7 +110,9 @@ function renderEditPage(){
           src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhudDdOmBxnlzN2zN36yABSJ7s84LXR_luPZQihD3AyC8XBmq4YQ"
         }
         elementAll.forEach(function(element) {
-          element.lockInElement()
+          if (element.deleted === false) {
+            element.lockInElement()
+          }
         })
         fetch('http://localhost:3000/layouts', {
           method: "POST",
