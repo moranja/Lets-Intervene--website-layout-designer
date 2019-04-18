@@ -93,8 +93,9 @@ function renderEditPage(){
     saveButton.addEventListener('click', function() {
       document.querySelector('#id02').style.display='block'
       const submitLayoutForm = document.querySelector('#new-layout-form')
-      submitLayoutForm.addEventListener('submit', function(){
-        let src = ""  
+      submitLayoutForm.addEventListener('submit', function(e){
+        e.preventDefault()
+        let src = ""
         if(submitLayoutForm.type.value == "Blog"){
           src = "https://www.propertyme.com.au/media/k2/items/cache/817a0b87c8b4a5b09390d4c2ae24ca96_L.jpg"
         }
@@ -121,15 +122,17 @@ function renderEditPage(){
             user_id: 3,
             html: workspaceDiv.innerHTML
           })
-          
         })
         .then(res => res.json())
         .then(function(res){
+          document.querySelector('#id02').style.display='none'
           window.alert(workspaceDiv.innerHTML)
+          console.log("test")
           clearPage()
-          renderHomePage()
+          const workSpaceDiv = document.createElement('div')
+          workSpaceDiv.innerHTML = res.html
+          document.body.append(workSpaceDiv)
           renderNavBar()
-          // replace these with taking you to the layout page you just created 
         })
       })
     })
@@ -177,45 +180,42 @@ function renderElementForm() {
 
   tagInput.addEventListener('input', function(e) {
     if (tagInput.value === 'img') {
-      if (!document.querySelector("#img-src")) {
+      if (!document.querySelector("#srcAttribute")) {
         const imgOption = document.createElement('input')
         imgOption.type = "text"
-        imgOption.id = "img-src"
+        imgOption.id = "srcAttribute"
 
         elementForm.removeChild(submitButton)
         elementForm.append(imgOption)
         elementForm.append(submitButton)
       }
-    } else if (tagInput.value === 'h1') {
-      if (!document.querySelector("#h1-text")) {
-        const h1Option = document.createElement('input')
-        h1Option.type = "text"
-        h1Option.id = "h1-text"
+    } else if (tagInput.value === 'h1' || tagInput.value === 'h2') {
+      if (!document.querySelector("#textAttribute")) {
+        const textOption = document.createElement('input')
+        textOption.type = "text"
+        textOption.id = "textAttribute"
 
         elementForm.removeChild(submitButton)
-        elementForm.append(h1Option)
+        elementForm.append(textOption)
         elementForm.append(submitButton)
-      }
-    } else if (tagInput.value === 'h2') {
-      if (!document.querySelector("#h2-text")) {
-        const h2Option = document.createElement('input')
-        h2Option.type = "text"
-        h2Option.id = "h2-text"
-
-        elementForm.removeChild(submitButton)
-        elementForm.append(h2Option)
-        elementForm.append(submitButton)
-      }
+      } //refactored, below should be obsolete
+    // } else if (tagInput.value === 'h2') {
+    //   if (!document.querySelector("#textAttribute")) {
+    //     const h2Option = document.createElement('input')
+    //     h2Option.type = "text"
+    //     h2Option.id = "textAttribute"
+    //
+    //     elementForm.removeChild(submitButton)
+    //     elementForm.append(h2Option)
+    //     elementForm.append(submitButton)
+    //   }
     } else {
-      if (!!document.querySelector("#img-src")) {
-        imgOption = document.querySelector("#img-src")
+      if (!!document.querySelector("#srcAttribute")) {
+        imgOption = document.querySelector("#srcAttribute")
         elementForm.removeChild(imgOption)
-      } else if (!!document.querySelector("#h1-text")) {
-        h1Option = document.querySelector("#h1-text")
-        elementForm.removeChild(h1Option)
-      } else if (!!document.querySelector("#h2-text")) {
-        h2Option = document.querySelector("#h2-text")
-        elementForm.removeChild(h2Option)
+      } else if (!!document.querySelector("#textAttribute")) {
+        textOption = document.querySelector("#textAttribute")
+        elementForm.removeChild(textOption)
       }
     }
   })
@@ -227,6 +227,15 @@ function renderElementForm() {
   elementForm.addEventListener('submit', (e) => {
     e.preventDefault()
     currentElement.tagName = tagInput.value
+    if (!!document.querySelector("#srcAttribute")) {
+      imgOption = document.querySelector("#srcAttribute")
+      currentElement.srcAttribute = imgOption.value
+      elementForm.removeChild(imgOption)
+    } else if (!!document.querySelector("#textAttribute")) {
+      textOption = document.querySelector("#textAttribute")
+      currentElement.textAttribute = textOption.value
+      elementForm.removeChild(textOption)
+    }
     document.querySelector('#id01').style.display= "none"
     currentElement.lockInElement()
   })

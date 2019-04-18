@@ -13,6 +13,8 @@ class Element {
     this.id = i++
     this.option = ""
     this.tagName = "div"
+    this.srcAttribute = ""
+    this.textAttribute = ""
     elementAll.push(this)
 
     document.addEventListener('mousemove', (e) => {
@@ -162,6 +164,11 @@ class Element {
 
   createFinalDiv() {
     let div = document.createElement(`${this.tagName}`)
+    if (this.srcAttribute !== "") {
+      div.setAttribute("src", this.srcAttribute)
+    } else if (this.textAttribute !== "") {
+      div.textContent = this.textAttribute
+    }
     div.style.position = 'absolute'
     div.style.background = 'white'
     div.style.border = "thin dashed black"
