@@ -122,7 +122,7 @@ function renderEditPage(){
           body: JSON.stringify({
             name: submitLayoutForm.name.value,
             img: src,
-            user_id: 3,
+            user_id: currentUserID,
             html: workspaceDiv.innerHTML
           })
         })

@@ -18,7 +18,7 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
-        
+
         input[type=submit] {
             margin: auto;
             width: 100%;
@@ -30,11 +30,11 @@
             border-radius: 4px;
             cursor: pointer;
         }
-        
+
         input[type=submit]:hover {
             background-color: #0832b9;
         }
-        
+
         div {
             border-radius: 5px;
             background-color: #f2f2f2;
@@ -51,9 +51,40 @@
     <script src="editBar.js"></script>
     <script src="HomePage.js"></script>
     <script src="NavBar.js"></script>
+    <script src="Users.js"></script>
     <!-- <script src="RenderAllLayouts.js"></script> -->
   </head>
   <body>
     <h1>Welcome to our Layout Designer</h1>
+    <br>
+    <div class="container">
+    <div id="user">
+        <h1><span id="logo">USERS LIST</span></h1>
+    </div>
+    <nav>
+        <ul id="my_ul">
+        <!-- <li><a href="../index.html">Home</a></li>
+        <li class="current"><a id="newuser" href="newuser.html">New user</a></li>
+        <li><a id="loginbtn" href="login.html">Log in</a></li>
+        <li> -->
+            <!-- <a id="nameofuser" href="#">User</a> -->
+        </li>
+        </ul>
+    </nav>
+    </div>
+    <br>
+    <div class="container">
+        <form id='form'>
+        <p>Username</p>
+        <input id = 'input' type="text" name="username" required>
+        <!-- <p>Password</p>
+        <input type="password" name="password" required>
+        <p>Repeat Password</p>
+        <input type="password" name="password" required>
+        <p>Function(admin/guest)</p>
+        <input type="text" name="function" required> -->
+        <input type='submit' value='Create Username'>
+        </form>
+    </div>
   </body>
 </html>
