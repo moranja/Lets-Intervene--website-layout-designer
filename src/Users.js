@@ -20,10 +20,30 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(function(response) {
       return response.json();
     })
-    .then(function(users) {});
+    .then(function(users) {
+        
+    });
 
     my_form.username.value = "";
 
   });
+  fetch("http://localhost:3000/users")
+  .then(function(res){
+    return res.json()
+  })
+  .then(function(users){
+    console.log(users)
+    users.forEach(function(user){
+      const my_ul = document.querySelector("#my_ul");
+      my_li = document.createElement("li");
+      my_ul.append(my_li);
+      my_li.append(user.name)
+    })
+    // const my_ul = document.querySelector("#my_ul");
+    // my_li = document.createElement("li");
+    // // my_ul.append(my_li);
+  //  const my_input = document.querySelector('#input')
+  // //   my_li.append(my_input.value)
+    })
+  })
   
-});
