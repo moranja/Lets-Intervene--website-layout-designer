@@ -20,28 +20,28 @@ class Element {
         if (e.clientX > this.rightEdge - this.borderWidth) {
           this.leftEdge = this.rightEdge - this.borderWidth
         } else {
-          this.leftEdge = e.clientX
+          this.leftEdge = e.clientX - (this.borderWidth/2)
         }
         this.reset() //each of these only activates while the mouse is clicked on it's respective div
       } else if (this.bottomEdgeIsMoving) {
         if (window.innerHeight - e.clientY > this.topEdge - this.borderWidth) {
           this.bottomEdge = this.topEdge - this.borderWidth
         } else {
-          this.bottomEdge = (window.innerHeight - e.clientY) // window.innerHeight is referenced because the e.clientY origin is the top of the screen, but css styling origin is the bottom of the screen. This inverts it so that it displays correctly.
+          this.bottomEdge = (window.innerHeight - e.clientY) - (this.borderWidth/2) // window.innerHeight is referenced because the e.clientY origin is the top of the screen, but css styling origin is the bottom of the screen. This inverts it so that it displays correctly.
         }
         this.reset()
       } else if (this.rightEdgeIsMoving) {
         if (e.clientX < this.leftEdge + this.borderWidth) {
           this.rightEdge = this.leftEdge + this.borderWidth
         } else {
-          this.rightEdge = e.clientX
+          this.rightEdge = e.clientX - (this.borderWidth/2)
         }
         this.reset()
       } else if (this.topEdgeIsMoving) {
         if (window.innerHeight - e.clientY < this.bottomEdge + this.borderWidth) {
           this.topEdge = this.bottomEdge + this.borderWidth
         } else {
-          this.topEdge = (window.innerHeight - e.clientY)
+          this.topEdge = (window.innerHeight - e.clientY) - (this.borderWidth/2)
         }
         this.reset()
       } else if (this.interiorIsMoving) {
@@ -112,21 +112,33 @@ class Element {
       e.preventDefault()
       this.leftEdgeIsMoving = true
       setDropdown(this)
-    })
+    }) //these event listeners check for any click (and drag) on their respective component divs
+    this.leftSide.addEventListener('mouseover', () => {
+      document.body.style.cursor = "ew-resize"
+    }) //these event listeners change the mouse cursor while over a component div
     this.bottomSide.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.bottomEdgeIsMoving = true
       setDropdown(this)
+    })
+    this.bottomSide.addEventListener('mouseover', () => {
+      document.body.style.cursor = "ns-resize"
     })
     this.rightSide.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.rightEdgeIsMoving = true
       setDropdown(this)
     })
+    this.rightSide.addEventListener('mouseover', () => {
+      document.body.style.cursor = "ew-resize"
+    })
     this.topSide.addEventListener('mousedown', (e) => {
       e.preventDefault()
       this.topEdgeIsMoving = true
       setDropdown(this)
+    })
+    this.topSide.addEventListener('mouseover', () => {
+      document.body.style.cursor = "ns-resize"
     })
     this.interior.addEventListener('mousedown', (e) => {
       e.preventDefault()
@@ -136,6 +148,9 @@ class Element {
       this.rightDistance = this.rightEdge-e.clientX
       this.topDistance = this.topEdge-(window.innerHeight-e.clientY)
       setDropdown(this)
+    })
+    this.interior.addEventListener('mouseover', () => {
+      document.body.style.cursor = "all-scroll"
     })
     this.interior.addEventListener('dblclick', (e) => {
       e.preventDefault()
