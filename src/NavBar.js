@@ -2,6 +2,7 @@ function renderNavBar(){
 
     const navBarDiv = document.createElement('div')
     navBarDiv.className = "w3-bar w3-border w3-large w3-blue"
+    navBarDiv.id = 'navbar'
     document.body.prepend(navBarDiv)
 
     const homePageButton = document.createElement('a')
