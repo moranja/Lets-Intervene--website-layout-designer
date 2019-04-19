@@ -64,6 +64,18 @@ function renderEditPage(){
       }
     })
 
+    // Exit Button
+    const exitElement = document.createElement('a')
+    exitElement.id = "exit-element-button"
+    exitElement.className = "w3-bar-item w3-button"
+    exitElement.innerText = "Exit"
+    // Exit Button Event Listener
+    exitElement.addEventListener('click', function() {
+      clearPage()
+      renderHomePage()
+      renderNavBar()
+    })
+
     // Save Button
     const saveButton = document.createElement('a')
     saveButton.id = "save-button"
@@ -116,12 +128,11 @@ function renderEditPage(){
           clearPage()
           renderNavBar()
           displayLayout(newLayout.html)
-          // addSaveLayoutToNavBar()
         })
       })
     })
     // Assembling Edit Bar
-    editBarDiv.append(createElementButton, currentElementDiv, editElement, deleteElement, saveButton)
+    editBarDiv.append(createElementButton, currentElementDiv, editElement, deleteElement, exitElement, saveButton)
     mainContainer.append(editBarDiv)
     document.body.append(mainContainer)
     // Adding Workspace
