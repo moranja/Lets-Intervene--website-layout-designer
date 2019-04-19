@@ -106,20 +106,17 @@ function renderEditPage(){
           })
         })
         .then(res => res.json())
-        .then(function(res){
+        .then(function(newLayout){
           document.querySelector('#id02').style.display='none'
-          window.alert(workspaceDiv.innerHTML)
-          const newWorkSpaceDiv = document.createElement('div')
-          newWorkSpaceDiv.style.position = "absolute"
-          newWorkSpaceDiv.style.height = `${window.innerHeight-61}px`
-          newWorkSpaceDiv.style.width = `${window.innerWidth}px`
-          newWorkSpaceDiv.innerHTML = workspaceDiv.innerHTML
-          clearPage()
+          window.alert(newLayout.html)
           elementID = 1
           elementAll = []
-          document.body.append(newWorkSpaceDiv)
           document.body.style.cursor = "default"
+          
+          clearPage()
+          displayLayout(newLayout.html)
           renderNavBar()
+          addSaveLayoutToNavBar()
         })
       })
     })

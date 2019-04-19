@@ -48,3 +48,15 @@ function renderNavBar(){
 function clearPage(){
     document.body.innerHTML = ''
 }
+
+let addSaveLayoutToNavBar = function() {
+  const navBar = document.querySelector('#navbar')
+  const saveThisLayoutButton = document.createElement('a')
+  saveThisLayoutButton.className = "w3-bar-item w3-button w3-padding-16"
+  saveThisLayoutButton.id = "save-this-layout-button"
+  saveThisLayoutButton.innerText = "Save This Layout"
+  navBar.append(saveThisLayoutButton)
+  saveThisLayoutButton.addEventListener('click', () => {
+      window.alert(workSpaceDiv.innerHTML)
+  })
+}
