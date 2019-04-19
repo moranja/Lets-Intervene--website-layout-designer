@@ -6,31 +6,16 @@ class Layout {
         this.html = html
         this.userName = userName
     }
+
     render(){
         const layoutDiv = document.createElement('div')
         layoutDiv.className = "w3-dropdown-hover"
         layoutDiv.style.padding = "20px"
         layoutDiv.addEventListener('click', () =>{
             clearPage()
-            const workSpaceDiv = document.createElement('div')
-            workSpaceDiv.style.position = "absolute"
-            workSpaceDiv.style.height = `${window.innerHeight-61}px`
-            workSpaceDiv.style.width = `${window.innerWidth}px`
-            workSpaceDiv.innerHTML = this.html
-            document.body.append(workSpaceDiv)
+            displayLayout(this.html)
             renderNavBar()
-            const navBar = document.querySelector('#navbar')
-            const saveThisLayoutButton = document.createElement('a')
-            saveThisLayoutButton.className = "w3-bar-item w3-button w3-padding-16"
-            saveThisLayoutButton.id = "save-this-layout-button"
-            saveThisLayoutButton.innerText = "Save This Layout"
-            navBar.append(saveThisLayoutButton)
-            saveThisLayoutButton.addEventListener('click', () => {
-                // clearPage()
-                // renderEditPage()
-                // workSpaceDiv.innerHTML = this.html
-                window.alert(workSpaceDiv.innerHTML)
-            })
+            addSaveLayoutToNavBar()
         })
 
         const smallerImg = document.createElement('img')
@@ -55,6 +40,15 @@ class Layout {
 
         layoutDiv.append(smallerImg, layoutName, hoveredDiv)
         hoveredDiv.append(htmlPreview, createdBy)
-        document.body.append(layoutDiv)           
+        document.body.append(layoutDiv)
     }
+}
+
+const displayLayout = function(html) {
+  const layoutDisplayDiv = document.createElement('div')
+  layoutDisplayDiv.style.position = "absolute"
+  layoutDisplayDiv.style.height = `${window.innerHeight-61}px`
+  layoutDisplayDiv.style.width = `${window.innerWidth}px`
+  layoutDisplayDiv.innerHTML = html
+  document.body.append(layoutDisplayDiv)
 }
