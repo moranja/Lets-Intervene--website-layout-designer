@@ -112,11 +112,11 @@ function renderEditPage(){
           elementID = 1
           elementAll = []
           document.body.style.cursor = "default"
-          
+
           clearPage()
-          displayLayout(newLayout.html)
           renderNavBar()
-          addSaveLayoutToNavBar()
+          displayLayout(newLayout.html)
+          // addSaveLayoutToNavBar()
         })
       })
     })

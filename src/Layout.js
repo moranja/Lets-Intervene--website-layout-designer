@@ -13,9 +13,8 @@ class Layout {
         layoutDiv.style.padding = "20px"
         layoutDiv.addEventListener('click', () =>{
             clearPage()
-            displayLayout(this.html)
             renderNavBar()
-            addSaveLayoutToNavBar()
+            displayLayout(this.html)
         })
 
         const smallerImg = document.createElement('img')
@@ -42,13 +41,38 @@ class Layout {
         hoveredDiv.append(htmlPreview, createdBy)
         document.body.append(layoutDiv)
     }
+
+    static renderAll(){
+        fetch('http://localhost:3000/layouts')
+        .then(function(res){
+            return res.json()
+        })
+        .then(function(layouts){
+            layouts.forEach(function(layout){
+                const newLayout = new Layout(layout.name, layout.user_id, layout.img, layout.html, layout.user.name)
+                newLayout.render()
+            })
+            renderNavBar()
+        })
+    };
 }
 
 const displayLayout = function(html) {
+  // displays the layout
   const layoutDisplayDiv = document.createElement('div')
   layoutDisplayDiv.style.position = "absolute"
   layoutDisplayDiv.style.height = `${window.innerHeight-61}px`
   layoutDisplayDiv.style.width = `${window.innerWidth}px`
   layoutDisplayDiv.innerHTML = html
   document.body.append(layoutDisplayDiv)
+  // modifies navbar with a save layout button
+  const navBar = document.querySelector('#navbar')
+  const saveThisLayoutButton = document.createElement('a')
+  saveThisLayoutButton.className = "w3-bar-item w3-button w3-padding-16 w3-right"
+  saveThisLayoutButton.id = "save-this-layout-button"
+  saveThisLayoutButton.innerText = "Save This Layout"
+  navBar.append(saveThisLayoutButton)
+  saveThisLayoutButton.addEventListener('click', () => {
+      window.alert(html)
+  })
 }
