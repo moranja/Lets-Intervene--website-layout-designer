@@ -1,52 +1,53 @@
-let elementID = 1
-let elementAll = []
-
 class Element {
+
+  leftEdge = 100
+  rightEdge = 200
+  bottomEdge = 100
+  topEdge = 200
+  borderWidth = 10
+  status = "EDIT"
+  id = Element.id++
+  option = ""
+  tagName = "div"
+  srcAttribute = ""
+  textAttribute = ""
+  deleted = false
+  static all = []
+  static id = 1
+
   constructor(body) {
     this.body = body
-    this.leftEdge = 100
-    this.rightEdge = 200
-    this.bottomEdge = 100
-    this.topEdge = 200
-    this.borderWidth = 10
     this.renderAll()
     this.createEventListeners()
-    this.status = "EDIT"
-    this.id = elementID++
-    this.option = ""
-    this.tagName = "div"
-    this.srcAttribute = ""
-    this.textAttribute = ""
-    this.deleted = false
-    elementAll.push(this)
+    Element.all.push(this)
 
     document.addEventListener('mousemove', (e) => {
       if (this.leftEdgeIsMoving) {
-        if (e.clientX > this.rightEdge - this.borderWidth) {
+        if (e.clientX > this.rightEdge - this.borderWidth/2) {
           this.leftEdge = this.rightEdge - this.borderWidth
         } else {
-          this.leftEdge = e.clientX - (this.borderWidth/2)
+          this.leftEdge = e.clientX - this.borderWidth/2
         }
         this.reset() //each of these only activates while the mouse is clicked on it's respective div
       } else if (this.bottomEdgeIsMoving) {
-        if (window.innerHeight - e.clientY > this.topEdge - this.borderWidth) {
+        if (window.innerHeight - e.clientY > this.topEdge - this.borderWidth/2) {
           this.bottomEdge = this.topEdge - this.borderWidth
         } else {
-          this.bottomEdge = (window.innerHeight - e.clientY) - (this.borderWidth/2) // window.innerHeight is referenced because the e.clientY origin is the top of the screen, but css styling origin is the bottom of the screen. This inverts it so that it displays correctly.
+          this.bottomEdge = (window.innerHeight - e.clientY) - this.borderWidth/2 // window.innerHeight is referenced because the e.clientY origin is the top of the screen, but css styling origin is the bottom of the screen. This inverts it so that it displays correctly.
         }
         this.reset()
       } else if (this.rightEdgeIsMoving) {
-        if (e.clientX < this.leftEdge + this.borderWidth) {
+        if (e.clientX < this.leftEdge + this.borderWidth + this.borderWidth/2) {
           this.rightEdge = this.leftEdge + this.borderWidth
         } else {
-          this.rightEdge = e.clientX - (this.borderWidth/2)
+          this.rightEdge = e.clientX - this.borderWidth/2
         }
         this.reset()
       } else if (this.topEdgeIsMoving) {
-        if (window.innerHeight - e.clientY < this.bottomEdge + this.borderWidth) {
+        if (window.innerHeight - e.clientY < this.bottomEdge + this.borderWidth + this.borderWidth/2) {
           this.topEdge = this.bottomEdge + this.borderWidth
         } else {
-          this.topEdge = (window.innerHeight - e.clientY) - (this.borderWidth/2)
+          this.topEdge = (window.innerHeight - e.clientY) - this.borderWidth/2
         }
         this.reset()
       } else if (this.interiorIsMoving) {
@@ -57,6 +58,7 @@ class Element {
         this.reset()
       }
     })
+
     document.addEventListener('mouseup', () => {
       this.leftEdgeIsMoving = false
       this.bottomEdgeIsMoving = false
@@ -64,6 +66,7 @@ class Element {
       this.topEdgeIsMoving = false
       this.interiorIsMoving = false
     }) // when mouse is unclicked, all divs stop moving
+
     this.appendAllToBody()
   }
 
@@ -242,4 +245,9 @@ class Element {
     this.createEventListeners()
     this.appendAllToBody()
   } //allows a user to return to edit a "locked in" element
+
+  static reset () {
+    Element.id = 1
+    Element.all = []
+  }
 }

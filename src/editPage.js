@@ -71,6 +71,7 @@ function renderEditPage(){
     exitElement.innerText = "Exit"
     // Exit Button Event Listener
     exitElement.addEventListener('click', function() {
+      Element.reset()
       clearPage()
       renderHomePage()
       renderNavBar()
@@ -100,7 +101,7 @@ function renderEditPage(){
         else if(submitLayoutForm.type.value == "Notes"){
           src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhudDdOmBxnlzN2zN36yABSJ7s84LXR_luPZQihD3AyC8XBmq4YQ"
         }
-        elementAll.forEach(function(element) {
+        Element.all.forEach(function(element) {
           if (element.deleted === false) {
             element.lockInElement()
           }
@@ -121,8 +122,7 @@ function renderEditPage(){
         .then(function(newLayout){
           document.querySelector('#id02').style.display='none'
           window.alert(newLayout.html)
-          elementID = 1
-          elementAll = []
+          Element.reset()
           document.body.style.cursor = "default"
 
           clearPage()
